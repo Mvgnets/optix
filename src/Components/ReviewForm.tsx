@@ -32,13 +32,13 @@ const ReviewForm = ({ selectedMovie, openReviewModal, setOpenReviewModal }: IRev
         { manual: true }
     );
 
-    const onSubmit = async (data: Inputs): Promise<void> => {
-        await executePut({
+    const onSubmit = (data: Inputs): Promise<void> => {
+        return executePut({
             data: {
                 review: data.review
             }
-        }).then(openToast).then(() => { setOpenReviewModal(false); }).catch((error) => { console.log('Error: ' + error); });
-        reset();
+        }).then(openToast).then(() => { setOpenReviewModal(false); }).catch((error) => { console.log('Error: ' + error); }).finally(() => reset());
+
     };
     const openToast = (): void => {
         setToastOpen(true);
